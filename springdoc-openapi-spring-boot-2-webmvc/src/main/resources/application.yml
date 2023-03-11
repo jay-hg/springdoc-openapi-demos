@@ -17,5 +17,6 @@ springdoc:
   group-configs:
     - group: stores
       paths-to-match: /store/**
+  writerWithDefaultPrettyPrinter: true
 server:
   port: 8080

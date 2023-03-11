@@ -19,11 +19,12 @@
 package org.springdoc.demo.app2;
 
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.ArraySchema;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import org.springdoc.core.GroupedOpenApi;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springdoc.core.customizers.OperationCustomizer;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
@@ -68,4 +69,15 @@ public class Application {
 				.packagesToScan("org.springdoc.demo.app2")
 				.build();
 	}
+
+	@Bean
+	public OpenApiCustomiser openApiCustomiser() {
+		return openApi -> {
+			ArraySchema arraySchema = new ArraySchema();
+			arraySchema.setMaxItems(1000);
+			arraySchema.items(new Schema().$ref("#/components/schemas/Pet"));
+			openApi.getComponents().addSchemas("myResponse", arraySchema);
+		};
+	}
+
 }

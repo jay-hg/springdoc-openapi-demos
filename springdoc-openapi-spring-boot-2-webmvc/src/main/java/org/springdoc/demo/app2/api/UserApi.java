@@ -23,11 +23,6 @@
  */
 package org.springdoc.demo.app2.api;
 
-import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.Explode;
@@ -40,15 +35,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.demo.app2.model.User;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @javax.annotation.Generated(value = "org.springdoc.demo.app2.codegen.languages.SpringCodegen", date = "2019-07-11T00:09:29.839+02:00[Europe/Paris]")
 
@@ -137,7 +129,7 @@ public interface UserApi {
 	@ApiResponses(value = @ApiResponse(description = "successful operation"))
 	@PutMapping(value = "/user/{username}", consumes = { "application/json", "application/xml", "application/x-www-form-urlencoded" })
 	default ResponseEntity<Void> updateUser(
-			@Parameter(description = "name that need to be deleted", required = true, explode = Explode.FALSE, in = ParameterIn.PATH, name = "username", style = ParameterStyle.SIMPLE, schema = @Schema(type = "string")) @PathVariable("username") String username,
+			@Parameter(description = "name that need to be deleted", required = true, explode = Explode.FALSE, in = ParameterIn.PATH, name = "username", style = ParameterStyle.SIMPLE, content = @Content(mediaType = "application/x-www-form-urlencoded", schema = @Schema(type = "string"))) @PathVariable("username") String username,
 			@Parameter(description = "Update an existent user in the store") @Valid @RequestBody User user) {
 		return getDelegate().updateUser(username, user);
 	}
